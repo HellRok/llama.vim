@@ -16,12 +16,6 @@ Local LLM-assisted text completion.
 
 ![llama vim-spec-1](https://github.com/user-attachments/assets/404ebc2a-e4b8-4119-999b-e5365ec3208d)
 
-#### Instruction-based editing
-
-https://github.com/user-attachments/assets/641a6e72-f1a2-4fe5-b0fd-c2597c6f4cdc
-
-https://github.com/user-attachments/assets/68bff15b-2d91-4800-985d-b7f110a0ccb7
-
 ---
 
 ## Features
@@ -29,7 +23,6 @@ https://github.com/user-attachments/assets/68bff15b-2d91-4800-985d-b7f110a0ccb7
 - Auto-suggest on cursor movement in `Insert` mode
 - Accept a suggestion with `Tab`
 - Accept the first line of a suggestion with `Shift+Tab`
-- Instruction-based editing with `<leader>lli`
 - Control max text generation time
 - Configure scope of context around the cursor
 - Ring context with chunks from open and edited files and yanked text
@@ -104,17 +97,7 @@ Examples:
     let g:llama_config.keymap_fim_accept_word = "<leader>ll]"
     ```
 
-5. Configure instruction-based editing keymaps
-
-    ```vim
-    let g:llama_config.keymap_inst_trigger  = "<leader>lli"
-    let g:llama_config.keymap_inst_rerun    = "<leader>llr"
-    let g:llama_config.keymap_inst_continue = "<leader>llc"
-    let g:llama_config.keymap_inst_accept   = "<Tab>"
-    let g:llama_config.keymap_inst_cancel   = "<Esc>"
-    ```
-
-6. Configure named llama.cpp servers:
+5. Configure named llama.cpp servers:
 
     ```vim
     let g:llama_config.profiles = {
@@ -125,32 +108,22 @@ Examples:
     ```
 
 Use `:LlamaProfile` to show the available profiles and `:LlamaProfile spark`
-to switch both FIM and instruction requests to another server. Profile names
+to switch FIM requests to another server. Profile names
 support command-line completion. The selected profile is persisted and
 `:LlamaProfileReset` can be used to restore the profile (or custom endpoints)
 configured in `.vimrc`.
 
 This only allows the host servers to be specified, not the models used which are
-configured using `model_fim` and `model_inst`. But using consistent naming
+configured using `model_fim`. But using consistent naming
 accross servers, or using server aliases, one can make this independant of the
 actual selected profile. For example, using something like:
-```console
-    \ 'model_fim':              'fim_model',
-    \ 'model_inst':             'inst_model',
-```
-And then in the server configuration, something like the following can be used:
-```console
-[qwen3.8-27B]
-alias                = inst_model,pi
-```
-And likewise for the fim_model.
 
 Please refer to `:help llama_config` or the [source](./autoload/llama.vim)
 for the full list of options.
 
 ### llama.cpp setup
 
-The plugin requires a [llama.cpp](https://github.com/ggml-org/llama.cpp) server instance to be running at [`g:llama_config.endpoint_fim`](https://github.com/ggml-org/llama.vim/blob/master/autoload/llama.vim#L18) and/or [`g:llama_config.endpoint_inst`](https://github.com/ggml-org/llama.vim/blob/master/autoload/llama.vim#L19).
+The plugin requires a [llama.cpp](https://github.com/ggml-org/llama.cpp) server instance to be running at [`g:llama_config.endpoint_fim`](https://github.com/ggml-org/llama.vim/blob/master/autoload/llama.vim#L18).
 
 #### Mac OS
 
