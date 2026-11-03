@@ -23,6 +23,7 @@ Local LLM-assisted text completion.
 - Auto-suggest on cursor movement in `Insert` mode
 - Accept a suggestion with `Tab`
 - Accept the first line of a suggestion with `Shift+Tab`
+- `<leader>po` opens (or focuses) a `pi` session in a tmux pane on the right, 1/3 of the window; re-running after it was closed resumes the last session (`:PiOpen`; config: `g:llama_pi_width`, `g:llama_pi_cmd`, `g:llama_pi_keymap`)
 - Control max text generation time
 - Configure scope of context around the cursor
 - Ring context with chunks from open and edited files and yanked text
