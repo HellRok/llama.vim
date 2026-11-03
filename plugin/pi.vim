@@ -3,6 +3,9 @@ let g:loaded_llama_pi = 1
 
 " Independent of g:llama_config.
 let g:llama_pi_width  = get(g:, 'llama_pi_width',  '33%')
+let g:llama_pi_mode         = get(g:, 'llama_pi_mode',         'pane')   " 'pane' or 'popup'
+let g:llama_pi_popup_width  = get(g:, 'llama_pi_popup_width',  '40%')
+let g:llama_pi_popup_margin = get(g:, 'llama_pi_popup_margin', 3)
 let g:llama_pi_cmd    = get(g:, 'llama_pi_cmd',    'pi --continue')
 let g:llama_pi_keymap = get(g:, 'llama_pi_keymap', '<leader>po')
 

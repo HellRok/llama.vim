@@ -16,10 +16,35 @@ function! s:pane_alive() abort
     return index(l:ids, s:pane) >= 0
 endfunction
 
+" Popup on the right side of the window with a margin on top, bottom and right.
+" Closes when pi exits; re-running resumes the session via `--continue`.
+function! s:open_popup() abort
+    let l:dim = s:tmux(['display-message', '-p', '-t', $TMUX_PANE,
+        \ '#{window_width} #{window_height}'])
+    if empty(l:dim)
+        return
+    endif
+    let [l:ww, l:wh] = map(split(l:dim[0]), 'str2nr(v:val)')
+    let l:m = g:llama_pi_popup_margin
+    let l:w = l:ww * str2nr(g:llama_pi_popup_width) / 100
+    let l:cmd = ['tmux', 'display-popup', '-E', '-t', $TMUX_PANE, '-d', getcwd(),
+        \ '-x', string(l:ww - l:w - l:m), '-y', string(l:wh - l:m),
+        \ '-w', string(l:w), '-h', string(l:wh - 2 * l:m), g:llama_pi_cmd]
+    if has('nvim')
+        call jobstart(l:cmd)
+    else
+        call job_start(l:cmd)
+    endif
+endfunction
+
 function! llama_pi#open() abort
     if empty($TMUX)
         echohl WarningMsg | echo 'llama_pi: not inside tmux' | echohl None
         return
+    endif
+
+    if g:llama_pi_mode ==# 'popup'
+        return s:open_popup()
     endif
 
     if s:pane_alive()
